@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.sena.adso.teamnoche.entity.Materia;
@@ -25,7 +24,7 @@ public class MateriaService implements IMateriaService {
 
 	@Override
 	public Optional<Materia> getById(Long id) {
-		return repository.findById(id);
+		return repository.findByIdCustom(id);
 	}
 
 	@Override

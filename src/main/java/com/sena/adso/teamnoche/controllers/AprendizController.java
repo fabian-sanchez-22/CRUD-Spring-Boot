@@ -14,38 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.adso.teamnoche.entity.Materia;
-import com.sena.adso.teamnoche.services.MateriaService;
+import com.sena.adso.teamnoche.entity.Aprendiz;
+import com.sena.adso.teamnoche.services.AprendizService;
 
 @RestController
-@RequestMapping ("materias")
-
-public class MateriaController {
+@RequestMapping("aprendices")
+public class AprendizController {
 
 	@Autowired
-	private MateriaService service;
+	private AprendizService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Materia>> getAll(){
+	public ResponseEntity<List<Aprendiz>> getAll(){
 		return ResponseEntity.ok(service.getAll());
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Optional<Materia>> getById(@PathVariable Long id){
-		Optional<Materia> materia = service.getById(id);
+	public ResponseEntity<Optional<Aprendiz>> getById(@PathVariable Long id){
+		Optional<Aprendiz> aprendiz = service.getById(id);
 		
-		return ResponseEntity.ok(materia);
+		return ResponseEntity.ok(aprendiz);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Materia> save (@RequestBody Materia materia){
-		Materia materiaDatabase = service.save(materia);
-		return ResponseEntity.ok(materiaDatabase);
+	public ResponseEntity<Aprendiz> save (@RequestBody Aprendiz aprendiz){
+		Aprendiz aprendizDatabase = service.save(aprendiz);
+		return ResponseEntity.ok(aprendizDatabase);
 	}
 	
 	@PutMapping("{id}")
-	    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Materia materia) {
-	        service.update(id, materia);
+	    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Aprendiz aprendiz) {
+	        service.update(id, aprendiz);
 	        return ResponseEntity.ok("Registro actualizado");
 	    }
 	   
@@ -54,5 +53,4 @@ public class MateriaController {
 	        service.delete(id);
 	        return ResponseEntity.ok("Registro eliminado");
 	    }
-	    
 }
