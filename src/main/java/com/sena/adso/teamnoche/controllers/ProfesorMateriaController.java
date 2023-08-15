@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.adso.teamnoche.entity.Aprendiz;
 import com.sena.adso.teamnoche.entity.ProfesorMateria;
 import com.sena.adso.teamnoche.services.ProfesorMateriaService;
 

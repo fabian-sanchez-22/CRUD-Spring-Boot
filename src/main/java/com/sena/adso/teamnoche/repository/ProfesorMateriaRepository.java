@@ -11,9 +11,9 @@ import com.sena.adso.teamnoche.entity.ProfesorMateria;
 @Repository
 public interface ProfesorMateriaRepository extends JpaRepository<ProfesorMateria, Long> {
 
-	@Query(value = "SELECT * FROM profesores_materias WHERE deleted_at IS NULL", nativeQuery = true)
+	@Query(value = "SELECT * FROM profesores_materias", nativeQuery = true)
 	List<ProfesorMateria> findAllCustom();
 	
-	@Query(value = "SELECT * FROM profesores_materias WHERE id = ?1 AND deleted_at IS NULL", nativeQuery = true)
+	@Query(value = "SELECT * FROM profesores_materias WHERE id = ?1", nativeQuery = true)
 	Optional<ProfesorMateria> findByIdCustom(Long id);
 }
