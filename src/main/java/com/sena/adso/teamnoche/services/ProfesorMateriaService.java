@@ -33,7 +33,7 @@ public class ProfesorMateriaService implements IProfesorMateriaService {
 
 	@Override
 	public void update(Long id, ProfesorMateria profesormateria) {
-		Optional<ProfesorMateria> profesormateriaO = repository.findById(id);
+		Optional<ProfesorMateria> profesormateriaO = repository.findByIdCustom(id);
 		if(profesormateriaO.isEmpty()) return;
 		
 		ProfesorMateria profesormateriaDatabase = profesormateriaO.get();

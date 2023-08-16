@@ -1,19 +1,18 @@
 package com.sena.adso.teamnoche.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 import com.sena.adso.teamnoche.entity.Profesor;
 
 public interface IProfesorService {
 
 	List<Profesor> getAll();
 	
-	Optional<Profesor> getById(Long id);
+	Profesor getById(Long id) throws Exception;
 	
 	Profesor save (Profesor profesor);
 	
-	void update (Long id, Profesor profesor);
+	void update (Long id, Profesor profesor) throws Exception;
 	
-	void delete (Long id);
+	void delete (Long id) throws Exception;
 	
 }

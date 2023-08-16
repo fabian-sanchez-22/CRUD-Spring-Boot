@@ -23,8 +23,10 @@ public class MateriaService implements IMateriaService {
 	}
 
 	@Override
-	public Optional<Materia> getById(Long id) {
-		return repository.findByIdCustom(id);
+	public Materia getById(Long id) throws Exception {
+		Optional<Materia> materiaO = repository.findById(id);
+		if (materiaO.isEmpty()) throw new Exception("La materia no existe");
+		return materiaO.get();
 	}
 
 	@Override
@@ -34,9 +36,9 @@ public class MateriaService implements IMateriaService {
 	}
 
 	@Override
-	public void update(Long id, Materia materia) {
-		Optional<Materia> materiaO = repository.findById(id);
-		if (materiaO.isEmpty()) return;
+	public void update(Long id, Materia materia) throws Exception {
+		Optional<Materia> materiaO = repository.findByIdCustom(id);
+		if (materiaO.isEmpty()) throw new Exception("La materia no existe");
 		
 		Materia materiaDatabase = materiaO.get();
 		materiaDatabase.setNombre(materia.getNombre());
@@ -46,7 +48,7 @@ public class MateriaService implements IMateriaService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Long id) throws Exception {
 		Optional<Materia> materiaO = repository.findById(id);
 		if (materiaO.isEmpty()) return;
 		

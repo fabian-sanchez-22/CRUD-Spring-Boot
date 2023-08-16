@@ -23,8 +23,10 @@ public class EspecialidadService implements IEspecialidadService {
 	}
 
 	@Override
-	public Optional<Especialidad> getById(Long id) {
-		return repository.findById(id);
+	public Especialidad getById(Long id) throws Exception {
+		Optional<Especialidad> especialidadO = repository.findById(id);
+		if (especialidadO.isEmpty()) throw new Exception("La especialidad no existe");
+		return especialidadO.get();
 	}
 
 	@Override
@@ -41,9 +43,9 @@ public class EspecialidadService implements IEspecialidadService {
 	 */
 
 	@Override
-	public void update(Long id, Especialidad especialidad) {
+	public void update(Long id, Especialidad especialidad) throws Exception {
 		Optional<Especialidad> especialidadO = repository.findById(id);
-		if (especialidadO.isEmpty()) return;
+		if (especialidadO.isEmpty()) throw new Exception("La especialidad no existe");
 		
 		Especialidad especialidadDatabase = especialidadO.get();
 		especialidadDatabase.setNombre(especialidad.getNombre());
@@ -59,7 +61,7 @@ public class EspecialidadService implements IEspecialidadService {
 	 */
 	
 	@Override
-	public void delete(Long id) {
+	public void delete(Long id) throws Exception {
 		Optional<Especialidad> especialidadO = repository.findById(id);
 		if (especialidadO.isEmpty()) return;
 		

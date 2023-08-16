@@ -23,8 +23,10 @@ public class ProfesorService implements IProfesorService {
 	}
 
 	@Override
-	public Optional<Profesor> getById(Long id) {
-		return repository.findByIdCustom(id);
+	public Profesor getById(Long id) throws Exception {
+		Optional<Profesor> profesorO = repository.findById(id);
+		if(profesorO.isEmpty()) throw new Exception("el profesor no existe");
+		return profesorO.get();
 	}
 
 	@Override
@@ -34,9 +36,9 @@ public class ProfesorService implements IProfesorService {
 	}
 
 	@Override
-	public void update(Long id, Profesor profesor) {
-		Optional<Profesor> profesorO = repository.findById(id);
-		if(profesorO.isEmpty()) return;
+	public void update(Long id, Profesor profesor) throws Exception {
+		Optional<Profesor> profesorO = repository.findByIdCustom(id);
+		if(profesorO.isEmpty()) throw new Exception ("El profesor no existe");
 		
 		Profesor profesorDatabase = profesorO.get();
 		profesorDatabase.setNombres(profesor.getNombres());
@@ -48,8 +50,8 @@ public class ProfesorService implements IProfesorService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		Optional<Profesor> profesorO = repository.findById(id);
+	public void delete(Long id) throws Exception {
+		Optional<Profesor> profesorO = repository.findByIdCustom(id);
 		if(profesorO.isEmpty()) return;
 		
 		Profesor profesorDatabase = profesorO.get();

@@ -35,7 +35,7 @@ public class AprendizService implements IAprendizService {
 
 	@Override
 	public void update(Long id, Aprendiz aprendiz) {
-		Optional<Aprendiz> aprendizO = repository.findById(id);
+		Optional<Aprendiz> aprendizO = repository.findByIdCustom(id);
 		if (aprendizO.isEmpty()) return;
 		
 		Aprendiz aprendizDatabase = aprendizO.get();
@@ -49,7 +49,7 @@ public class AprendizService implements IAprendizService {
 
 	@Override
 	public void delete(Long id) {
-		Optional<Aprendiz> aprendizO = repository.findById(id);
+		Optional<Aprendiz> aprendizO = repository.findByIdCustom(id);
 		if(aprendizO.isEmpty()) return;
 		
 		Aprendiz aprendizDatabase = aprendizO.get();

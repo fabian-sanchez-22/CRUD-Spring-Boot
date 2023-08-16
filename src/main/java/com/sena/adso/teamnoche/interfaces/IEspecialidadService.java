@@ -1,7 +1,6 @@
 package com.sena.adso.teamnoche.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.sena.adso.teamnoche.entity.Especialidad;
 
@@ -11,15 +10,15 @@ public interface IEspecialidadService {
 List<Especialidad> getAll();
 
 	//Consultar especialidad por ID
-Optional<Especialidad> getById(Long id);
+     Especialidad getById(Long id) throws Exception;
 
 	//Guardar Especialidad
 Especialidad save (Especialidad especialidad);
 
 	//Actualizar un registri por id
-void update (Long id, Especialidad especialidad);
+void update (Long id, Especialidad especialidad) throws Exception;
 
 	//Eliminar registro por id
-void delete (Long id);
+void delete (Long id) throws Exception;
 }
 

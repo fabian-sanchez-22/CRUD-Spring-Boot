@@ -35,7 +35,7 @@ public class GradoService implements IGradoService {
 
 	@Override
 	public void update(Long id, Grado grado) {
-		Optional<Grado> gradoO = repository.findById(id);
+		Optional<Grado> gradoO = repository.findByIdCustom(id);
 		if (gradoO.isEmpty()) return;
 		
 		Grado gradoDatabase = gradoO.get();

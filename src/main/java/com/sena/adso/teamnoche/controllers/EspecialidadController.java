@@ -1,6 +1,5 @@
 package com.sena.adso.teamnoche.controllers;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,23 +24,42 @@ public class EspecialidadController {
 	private EspecialidadService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Especialidad>> getAll(){
-		return ResponseEntity.ok(service.getAll());
+	public ResponseEntity<?> getAll(){
+		try {
+			List<Especialidad> especialidades = service.getAll();
+			return ResponseEntity.ok(especialidades);
+			
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+		
 	}
 	
 	// http://localhost:9000/especialidades/1
 	@GetMapping("{id}")
-	public ResponseEntity <Optional<Especialidad>> getById(@PathVariable Long id){
-		Optional<Especialidad> especialidad = service.getById(id);
+	public ResponseEntity <?> getById(@PathVariable Long id){
 		
-		return ResponseEntity.ok(especialidad); 
+		try {
+			Especialidad especialidad = service.getById(id);
+			return ResponseEntity.ok(especialidad); 
+			
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+		
 	}
 	
 	//post y put pueden enviar datos a traves de la url o del cuerpo de la peticion
 	@PostMapping
-	public ResponseEntity<Especialidad> save (@RequestBody Especialidad especialidad){
-		Especialidad especialidadDatabase = service.save(especialidad);
-		return ResponseEntity.ok(especialidadDatabase);
+	public ResponseEntity<?> save (@RequestBody Especialidad especialidad){
+		try {
+			Especialidad especialidadDatabase = service.save(especialidad);
+			return ResponseEntity.ok(especialidadDatabase);
+			
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+		
 	}
 	
 	//crear el actualizar y eliminar aqui en el controlador 
@@ -52,15 +70,25 @@ public class EspecialidadController {
 	
     @PutMapping("{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Especialidad especialidad) {
-        service.update(id, especialidad);
-        return ResponseEntity.ok("Registro actualizado");
+    	try {
+    		service.update(id, especialidad);
+            return ResponseEntity.ok("Registro actualizado");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+        
     }
     
     //deletemapping
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.ok("Registro eliminado");
+    	try {
+    		service.delete(id);
+            return ResponseEntity.ok("Registro eliminado");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+        
     }
 	
 }

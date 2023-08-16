@@ -1,7 +1,7 @@
 package com.sena.adso.teamnoche.controllers;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,33 +26,61 @@ public class MateriaController {
 	private MateriaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Materia>> getAll(){
-		return ResponseEntity.ok(service.getAll());
+	public ResponseEntity<?> getAll(){
+		try {
+			List<Materia> materias = service.getAll();
+			return ResponseEntity.ok(materias);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+		
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Optional<Materia>> getById(@PathVariable Long id){
-		Optional<Materia> materia = service.getById(id);
+	public ResponseEntity<?> getById(@PathVariable Long id){
+		try {
+			Materia materia = service.getById(id);
+			return ResponseEntity.ok(materia);
+			
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 		
-		return ResponseEntity.ok(materia);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Materia> save (@RequestBody Materia materia){
-		Materia materiaDatabase = service.save(materia);
-		return ResponseEntity.ok(materiaDatabase);
+	public ResponseEntity<?> save (@RequestBody Materia materia){
+		try {
+			Materia materiaDatabase = service.save(materia);
+			return ResponseEntity.ok(materiaDatabase);
+			
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+		
 	}
 	
 	@PutMapping("{id}")
 	    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Materia materia) {
-	        service.update(id, materia);
+		try {
+			service.update(id, materia);
 	        return ResponseEntity.ok("Registro actualizado");
-	    }
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	        
+	  }
 	   
+	
 	@DeleteMapping("{id}")
 	    public ResponseEntity<String> delete(@PathVariable Long id) {
-	        service.delete(id);
+		try {
+			service.delete(id);
 	        return ResponseEntity.ok("Registro eliminado");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	        
 	    }
 	    
 }
