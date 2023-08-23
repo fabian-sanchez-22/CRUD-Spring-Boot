@@ -5,14 +5,24 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sena.adso.teamnoche.dtos.EspecialidadDatatableDto;
 import com.sena.adso.teamnoche.entity.Especialidad;
 import com.sena.adso.teamnoche.interfaces.IEspecialidadService;
 import com.sena.adso.teamnoche.repository.EspecialidadRepository;
 
 @Service
 public class EspecialidadService implements IEspecialidadService {
+	
+	@Override
+	public Page<EspecialidadDatatableDto> getDatatable(Pageable pageable, String searchText){
+		return repository.getDatatable(pageable, searchText) ;
+		
+	}
+	
 
 	@Autowired
 	private EspecialidadRepository repository;

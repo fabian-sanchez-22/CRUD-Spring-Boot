@@ -1,7 +1,13 @@
 package com.sena.adso.teamnoche.controllers;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena.adso.teamnoche.dtos.ApiResponseDto;
+import com.sena.adso.teamnoche.dtos.EspecialidadDatatableDto;
 import com.sena.adso.teamnoche.entity.Especialidad;
 import com.sena.adso.teamnoche.services.EspecialidadService;
 
@@ -19,18 +28,43 @@ import com.sena.adso.teamnoche.services.EspecialidadService;
 @RestController
 @RequestMapping ("especialidades")
 public class EspecialidadController {
+	
+
 
 	@Autowired
 	private EspecialidadService service;
 	
+	
+	@GetMapping("/datatable")
+	public ResponseEntity<?>  datatable (@RequestParam(name = "page") Integer page,
+										@RequestParam(name = "size") Integer size,
+										@RequestParam(name = "column_order") String columnOrder,
+										@RequestParam(name = "column_direction") String columnDirection,
+										@RequestParam(name = "search", required = false) String search){
+	
+	try {
+		List<Order> orders = new ArrayList<>();
+		
+		orders.add(new Order(columnDirection.equals("asc") ? Direction.ASC : Direction.DESC, columnOrder));
+		
+		Page<EspecialidadDatatableDto> data = service.getDatatable(PageRequest.of(page, size, Sort.by(orders)), search == null ? "" : search);
+		return ResponseEntity.ok(data);
+		
+	} catch (Exception e) {
+		return ResponseEntity.internalServerError().body(e.getMessage());
+	}
+	}
+	
+
+	
 	@GetMapping
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<ApiResponseDto<List<Especialidad>>> getAll(){
 		try {
 			List<Especialidad> especialidades = service.getAll();
-			return ResponseEntity.ok(especialidades);
+			return ResponseEntity.ok(new ApiResponseDto<List<Especialidad>>("OK", true, especialidades));
 			
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().body(new ApiResponseDto<List<Especialidad>>(e.getMessage(), false, null));
 		}
 		
 	}

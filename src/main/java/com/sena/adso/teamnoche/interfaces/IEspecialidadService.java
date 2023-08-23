@@ -2,9 +2,15 @@ package com.sena.adso.teamnoche.interfaces;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.sena.adso.teamnoche.dtos.EspecialidadDatatableDto;
 import com.sena.adso.teamnoche.entity.Especialidad;
 
 public interface IEspecialidadService {
+	
+	Page<EspecialidadDatatableDto> getDatatable(Pageable pageable, String searchText);
 	
 	//Consultar todas las especialidades
 List<Especialidad> getAll();
