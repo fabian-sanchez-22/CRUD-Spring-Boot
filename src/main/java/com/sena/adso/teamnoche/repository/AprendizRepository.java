@@ -15,7 +15,7 @@ import com.sena.adso.teamnoche.entity.Aprendiz;
 @Repository
 public interface AprendizRepository extends JpaRepository<Aprendiz, Long> {
 
-	@Query(value = "SELECT id, nombres, apellidos FROM aprendices WHERE nombres LIKE CONCAT('%', :searchText, '%')", nativeQuery = true)
+	@Query(value = "SELECT id, nombres, apellidos, grado_id FROM aprendices WHERE nombres LIKE CONCAT('%', :searchText, '%')", nativeQuery = true)
 	Page<AprendizDatatableDto> getDatatable(Pageable pageable, String searchText);
 	
 	@Query(value = "SELECT * FROM aprendices WHERE deleted_at IS NULL", nativeQuery = true)

@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sena.adso.teamnoche.dtos.ProfesorDatatableDto;
 import com.sena.adso.teamnoche.entity.Profesor;
 import com.sena.adso.teamnoche.interfaces.IProfesorService;
 import com.sena.adso.teamnoche.repository.ProfesorRepository;
@@ -16,6 +19,11 @@ public class ProfesorService implements IProfesorService {
 
 	@Autowired
 	private ProfesorRepository repository;
+	
+	@Override
+	public Page<ProfesorDatatableDto> getDatatable(Pageable pageable, String searchText){
+		return repository.getDatatable(pageable, searchText);
+	}
 	
 	@Override
 	public List<Profesor> getAll() {

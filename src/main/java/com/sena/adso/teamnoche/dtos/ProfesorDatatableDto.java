@@ -1,10 +1,9 @@
 package com.sena.adso.teamnoche.dtos;
 
-public interface AprendizDatatableDto {
-	
+public interface ProfesorDatatableDto {
+
 	Long getId();
 	String getNombres();
 	String getApellidos();
-	Long getGrado_id();
-
+	Long getEspecialidad_id();
 }

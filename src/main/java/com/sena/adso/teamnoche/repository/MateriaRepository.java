@@ -18,10 +18,10 @@ public interface MateriaRepository extends JpaRepository<Materia, Long> {
 	@Query(value = "SELECT id, nombre FROM materias WHERE nombre LIKE CONCAT('%', :searchText, '%')", nativeQuery = true)
 	Page<MateriaDatatableDto> getDatatable(Pageable pageable, String searchText);
 	
-@Query(value = "SELECT * FROM materias WHERE deleted_at IS NULL", nativeQuery = true)
-List<Materia> findAllCustom();
+	@Query(value = "SELECT * FROM materias WHERE deleted_at IS NULL", nativeQuery = true)
+	List<Materia> findAllCustom();
 
-@Query(value = "SELECT * FROM materias WHERE id = ?1 AND deleted_at IS NULL", nativeQuery = true)
-Optional<Materia> findByIdCustom(Long id);
+	@Query(value = "SELECT * FROM materias WHERE id = ?1 AND deleted_at IS NULL", nativeQuery = true)
+	Optional<Materia> findByIdCustom(Long id);
 
 }
