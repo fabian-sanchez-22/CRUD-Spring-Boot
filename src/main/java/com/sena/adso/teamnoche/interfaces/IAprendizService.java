@@ -1,19 +1,25 @@
 package com.sena.adso.teamnoche.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.sena.adso.teamnoche.dtos.AprendizDatatableDto;
 import com.sena.adso.teamnoche.entity.Aprendiz;
 
 public interface IAprendizService {
+	
+	Page<AprendizDatatableDto> getDatatable(Pageable pageable, String searchText);
 
 	List<Aprendiz> getAll();
 	
-	Optional<Aprendiz> getById(Long id);
+	Aprendiz getById(Long id) throws Exception;
 	
 	Aprendiz save (Aprendiz aprendiz);
 	
-	void update (Long id, Aprendiz aprendiz );
+	void update (Long id, Aprendiz aprendiz) throws Exception;
 	
-	void delete (Long id);
+	void delete (Long id) throws Exception;
+	
 }

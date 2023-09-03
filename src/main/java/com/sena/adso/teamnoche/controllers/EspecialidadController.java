@@ -69,6 +69,7 @@ public class EspecialidadController {
 		
 	}
 	
+	
 	// http://localhost:9000/especialidades/1
 	@GetMapping("{id}")
 	public ResponseEntity <?> getById(@PathVariable Long id){
