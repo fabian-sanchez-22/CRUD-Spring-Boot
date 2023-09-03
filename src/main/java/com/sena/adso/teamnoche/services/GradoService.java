@@ -46,7 +46,7 @@ public class GradoService implements IGradoService {
 	@Override
 	public void update(Long id, Grado grado) throws Exception {
 		Optional<Grado> gradoO = repository.findByIdCustom(id);
-		if (gradoO.isEmpty()) return;
+		if (gradoO.isEmpty()) throw new Exception("El grado no existe");
 		
 		Grado gradoDatabase = gradoO.get();
 		gradoDatabase.setNombre(grado.getNombre());

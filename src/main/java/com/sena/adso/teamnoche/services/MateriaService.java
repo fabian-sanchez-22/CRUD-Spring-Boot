@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sena.adso.teamnoche.dtos.MateriaDatatableDto;
 import com.sena.adso.teamnoche.entity.Materia;
 import com.sena.adso.teamnoche.interfaces.IMateriaService;
 import com.sena.adso.teamnoche.repository.MateriaRepository;
@@ -16,6 +19,11 @@ public class MateriaService implements IMateriaService {
 	
 	@Autowired
 	private MateriaRepository repository;
+	
+	@Override
+	public Page<MateriaDatatableDto> getDatatable(Pageable pageable, String searchText){
+		return repository.getDatatable(pageable, searchText);
+	}
 
 	@Override
 	public List<Materia> getAll() {
