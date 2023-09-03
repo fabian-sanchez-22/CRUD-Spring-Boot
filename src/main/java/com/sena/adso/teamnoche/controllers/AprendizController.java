@@ -81,20 +81,35 @@ try {
 	
 	
 	@PostMapping
-	public ResponseEntity<Aprendiz> save (@RequestBody Aprendiz aprendiz){
+	public ResponseEntity<?> save (@RequestBody Aprendiz aprendiz){
+		try {
 		Aprendiz aprendizDatabase = service.save(aprendiz);
 		return ResponseEntity.ok(aprendizDatabase);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
+	
+	
 	
 	@PutMapping("{id}")
 	    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Aprendiz aprendiz) {
+		try {
 	        service.update(id, aprendiz);
 	        return ResponseEntity.ok("Registro actualizado");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	    }
 	   
 	@DeleteMapping("{id}")
 	    public ResponseEntity<String> delete(@PathVariable Long id) {
+		try {
 	        service.delete(id);
 	        return ResponseEntity.ok("Registro eliminado");
-	    }
+	        
+	    } catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
 }
